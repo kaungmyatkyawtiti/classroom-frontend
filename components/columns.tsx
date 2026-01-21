@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -17,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Subject } from "@/types"
+import { Badge } from "./ui/badge";
 
 export const columns: ColumnDef<Subject>[] = [
   {
@@ -55,21 +55,21 @@ export const columns: ColumnDef<Subject>[] = [
   {
     accessorKey: "code",
     header: ({ table }) => (
-      <h2 className="mx-5">Code</h2>
+      <h2 className="mx-6">Code</h2>
     ),
     cell: ({ row }) => (
-      <div className="mx-5">
+      <Badge className="mx-6 bg-class-orange text-white">
         {row.getValue("code")}
-      </div>
+      </Badge>
     ),
   },
   {
     accessorKey: "department",
     header: ({ table }) => (
-      <h2 className="mx-5">Department</h2>
+      <h2 className="mx-6">Department</h2>
     ),
     cell: ({ row }) => (
-      <div className="mx-5">
+      <div className="mx-6">
         {row.getValue("department")}
       </div>
     ),

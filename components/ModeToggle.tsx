@@ -19,16 +19,19 @@ export default function ModeToggle() {
       <DropdownMenuTrigger asChild>
         <Button
           size="icon"
+          className="
+          bg-yellow-600 dark:bg-emerald-600 
+          hover:bg-yellow-600/90 dark:hover:bg-emerald-600/90 text-white"
         >
           <Sun
             className="
             h-[1.3rem] w-[1.3rem] 
-            scale-100 dark:scale-0 text-yellow-500"
+            scale-100 dark:scale-0"
           />
           <Moon
             className="
             absolute h-[1.3rem] w-[1.3rem] 
-            scale-0 dark:scale-100 text-emerald-700"
+            scale-0 dark:scale-100"
           />
           <span className="sr-only">Toggle theme</span>
         </Button>

@@ -1,5 +1,11 @@
 "use client"
 
+import {
+  Select, SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import * as React from "react"
 import {
   flexRender,
@@ -12,29 +18,13 @@ import {
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table"
-import { ChevronDown, Plus, Search } from "lucide-react"
+import { Plus, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { MOCK_SUBJECTS } from "@/constants/dummy"
+import { DEPARTMENT_OPTIONS, MOCK_SUBJECTS } from "@/constants/dummy"
 import { columns } from "./columns"
+import DataTable from "./DataTable"
 
 export function DataTableDemo() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -45,9 +35,8 @@ export function DataTableDemo() {
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const data = MOCK_SUBJECTS;
   const table = useReactTable({
-    data,
+    data: MOCK_SUBJECTS,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -82,96 +71,35 @@ export function DataTableDemo() {
         <div className="flex items-center gap-2">
           <Button
             size="sm"
-            className="bg-emerald-600 hover:bg-emerald-600/90"
+            className="bg-emerald-600 hover:bg-emerald-600/90 text-white"
           >
             <Plus size={18} />
             Add
           </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                Columns <ChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
+          <Select
+            onValueChange={(value) => {
+              table.getColumn("department")?.setFilterValue(value)
+            }}
+          >
+            <SelectTrigger className="min-w-35">
+              <SelectValue placeholder="All Departments" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                DEPARTMENT_OPTIONS.map(dpt => (
+                  <SelectItem
+                    key={dpt.value}
+                    value={dpt.value}
+                  >
+                    {dpt.label}
+                  </SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
         </div>
       </div>
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      className="text-[15px] font-semibold h-14"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className="text-[15px] text-foreground/90"
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+      <DataTable table={table} columnsLength={columns.length} />
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}

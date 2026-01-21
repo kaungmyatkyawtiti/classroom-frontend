@@ -18,7 +18,7 @@ export default function PageContainer({ children }: { children: ReactNode }) {
 
   return (
     <main className="my-6 px-4">
-      <Breadcrumb>
+      <Breadcrumb className="mb-5">
         <BreadcrumbList>
           <BreadcrumbItem>
             {segments.length === 0 ? (

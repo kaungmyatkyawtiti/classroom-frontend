@@ -26,3 +26,31 @@ export const MOCK_SUBJECTS: Subject[] = [
     createdAt: "2026-01-15T14:15:00.000Z",
   }
 ];
+
+export const DEPARTMENTS = [
+  "Computer Science",
+  "Mathematics",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "English",
+  "History",
+  "Geography",
+  "Economics",
+  "Business Administration",
+  "Engineering",
+  "Psychology",
+  "Sociology",
+  "Political Science",
+  "Philosophy",
+  "Education",
+  "Fine Arts",
+  "Music",
+  "Physical Education",
+  "Law",
+] as const;
+
+export const DEPARTMENT_OPTIONS = DEPARTMENTS.map((dpt) => ({
+  value: dpt,
+  label: dpt,
+}));
