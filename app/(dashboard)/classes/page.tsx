@@ -1,3 +1,17 @@
+// import { Button } from "@/components/ui/button";
+// import Link from "next/link";
+//
+// export default function page() {
+//   return (
+//     <div>
+//       <Link href={"/classes/create"}>
+//         <Button>
+//           Create
+//         </Button>
+//       </Link>
+//     </div>
+//   )
+// }
 "use client"
 
 import {
@@ -8,7 +22,6 @@ import {
 } from "@/components/ui/select"
 import * as React from "react"
 import {
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -22,11 +35,12 @@ import { Plus, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { DEPARTMENT_OPTIONS, MOCK_SUBJECTS } from "@/constants/dummy"
-import { columns } from "./columns"
-import DataTable from "./DataTable"
+import { MOCK_CLASSES, SUBJECT_OPTIONS } from "@/constants/dummy"
+import DataTable from "@/components/DataTable"
+import { classColumns } from "@/components/class-colums"
+import { useRouter } from "next/navigation"
 
-export function DataTableDemo() {
+export default function SubjectPage() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -36,8 +50,8 @@ export function DataTableDemo() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: MOCK_SUBJECTS,
-    columns,
+    data: MOCK_CLASSES,
+    columns: classColumns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -54,9 +68,15 @@ export function DataTableDemo() {
     },
   })
 
+  const router = useRouter();
+
   return (
-    <div className="w-full">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between py-4 gap-3">
+    <div>
+      <div className="space-y-1 mb-6">
+        <h2 className="page-title">Classes</h2>
+        <p className="text-foreground/85 text-[15px]">Manage your classes, subjects and teachers.</p>
+      </div>
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between py-4 gap-3">
         <div className="relative max-w-sm w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -69,37 +89,52 @@ export function DataTableDemo() {
           />
         </div>
         <div className="flex items-center gap-2">
+          <Select
+            onValueChange={(value) => {
+              if (value === "all") {
+                table.getColumn("subjectName")?.setFilterValue(undefined)
+              } else {
+                table.getColumn("subjectName")?.setFilterValue(value)
+              }
+            }}
+          >
+            <SelectTrigger className="min-w-35">
+              <SelectValue placeholder="Filter Subjects" />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value="all">
+                All Subjects
+              </SelectItem>
+              {SUBJECT_OPTIONS.map((subject) => (
+                <SelectItem key={subject.value} value={subject.value}>
+                  {subject.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger className="min-w-35">
+              <SelectValue placeholder="Filter Teachers" />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value="all">
+                All Departments
+              </SelectItem>
+            </SelectContent>
+          </Select>
           <Button
             size="sm"
             className="bg-emerald-600 hover:bg-emerald-600/90 text-white"
+            onClick={() => router.push("/classes/create")}
           >
             <Plus size={18} />
             Add
           </Button>
-          <Select
-            onValueChange={(value) => {
-              table.getColumn("department")?.setFilterValue(value)
-            }}
-          >
-            <SelectTrigger className="min-w-35">
-              <SelectValue placeholder="All Departments" />
-            </SelectTrigger>
-            <SelectContent>
-              {
-                DEPARTMENT_OPTIONS.map(dpt => (
-                  <SelectItem
-                    key={dpt.value}
-                    value={dpt.value}
-                  >
-                    {dpt.label}
-                  </SelectItem>
-                ))
-              }
-            </SelectContent>
-          </Select>
         </div>
       </div>
-      <DataTable table={table} columnsLength={columns.length} />
+
+      <DataTable table={table} columnsLength={classColumns.length} />
+
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}

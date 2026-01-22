@@ -1,8 +1,9 @@
-import { Subject } from "@/types";
+import { ClassDetail, Subject, UserRole } from "@/types";
+
 
 export const MOCK_SUBJECTS: Subject[] = [
   {
-    id: 1,
+    id: "a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
     code: "CS101",
     name: "Introduction to Computer Science",
     department: "CS",
@@ -10,7 +11,7 @@ export const MOCK_SUBJECTS: Subject[] = [
     createdAt: "2026-01-20T05:00:00.000Z",
   },
   {
-    id: 2,
+    id: "b2c3d4e5-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
     code: "MATH201",
     name: "Calculus II",
     department: "Math",
@@ -18,13 +19,161 @@ export const MOCK_SUBJECTS: Subject[] = [
     createdAt: "2026-01-18T09:30:00.000Z",
   },
   {
-    id: 3,
+    id: "c3d4e5f6-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
     code: "ENG102",
     name: "Literature and Composition",
     department: "English",
-    description: "A course focused on critical reading and writing through the study of various literary genres. and this is another filling text blah",
+    description:
+      "A course focused on critical reading and writing through the study of various literary genres. and this is another filling text blah",
     createdAt: "2026-01-15T14:15:00.000Z",
   }
+];
+
+export const MOCK_CLASSES: ClassDetail[] = [
+  {
+    id: "b2a9f1d8-8a2f-4f7d-9c6b-9f4a2c6a1b8e",
+    name: "Data Structures",
+    description: "Learn fundamental data structures such as arrays, stacks, queues, and trees.",
+    status: "active",
+    capacity: 40,
+    courseCode: "CS201",
+    courseName: "Data Structures",
+    bannerUrl: "https://placehold.co/600x300",
+    bannerCldPubId: "class_banners/ds",
+    subject: {
+      id: "7a8b9c2d-1e4f-4a6b-8c9d-0a1b2c3d4e5f",
+      name: "Data Structures",
+      code: "CS201",
+      description: "Core computer science subject",
+      department: "Computer Science",
+      createdAt: "2026-01-10T10:00:00.000Z",
+    },
+    teacher: {
+      id: "a1b2c3d4-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      name: "Kyaw Kyaw",
+      email: "kyawkyaw@example.com",
+      role: UserRole.TEACHER,
+      createdAt: "2025-10-01T09:00:00.000Z",
+      updatedAt: "2026-01-01T09:00:00.000Z",
+      department: "Computer Science",
+    },
+    department: {
+      id: "c1d2e3f4-5a6b-4c7d-8e9f-0a1b2c3d4e5f",
+      name: "Computer Science",
+      description: "Department of Computer Science",
+    },
+    schedules: [
+      { day: "Monday", startTime: "09:00", endTime: "10:30" },
+      { day: "Wednesday", startTime: "09:00", endTime: "10:30" },
+    ],
+    inviteCode: "DS2026",
+  },
+  {
+    id: "d7f9f8c1-3b59-4c3e-8a4b-5b4a8d5e1c6f",
+    name: "Calculus II",
+    description: "Advanced calculus covering integrals, sequences, and series.",
+    status: "active",
+    capacity: 35,
+    courseCode: "MATH201",
+    courseName: "Calculus II",
+    subject: {
+      id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      name: "Calculus II",
+      code: "MATH201",
+      description: "Advanced mathematics course",
+      department: "Mathematics",
+      createdAt: "2026-01-05T08:30:00.000Z",
+    },
+    teacher: {
+      id: "b2c3d4e5-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+      name: "Aye Aye Win",
+      email: "ayeayewin@example.com",
+      role: UserRole.TEACHER,
+      createdAt: "2025-09-20T09:00:00.000Z",
+      updatedAt: "2026-01-01T09:00:00.000Z",
+      department: "Mathematics",
+    },
+    department: {
+      id: "d2e3f4a5-6b7c-4d8e-9f0a-1b2c3d4e5f6a",
+      name: "Mathematics",
+      description: "Department of Mathematics",
+    },
+    schedules: [
+      { day: "Tuesday", startTime: "10:00", endTime: "11:30" },
+      { day: "Thursday", startTime: "10:00", endTime: "11:30" },
+    ],
+    inviteCode: "CALC2",
+  },
+  {
+    id: "f1e8b3a6-1c7d-4d8b-9a6f-2b4e6a7c5d8f",
+    name: "Literature and Composition",
+    description: "Critical reading and academic writing through literature studies.",
+    status: "inactive",
+    capacity: 25,
+    courseCode: "ENG102",
+    courseName: "Literature & Composition",
+    subject: {
+      id: "3a4b5c6d-7e8f-4a9b-8c0d-1e2f3a4b5c6d",
+      name: "Literature and Composition",
+      code: "ENG102",
+      description: "English literature and writing",
+      department: "English",
+      createdAt: "2026-01-02T14:15:00.000Z",
+    },
+    teacher: {
+      id: "c3d4e5f6-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+      name: "Hnin Thandar",
+      email: "hninthandar@example.com",
+      role: UserRole.TEACHER,
+      createdAt: "2025-08-10T09:00:00.000Z",
+      updatedAt: "2026-01-01T09:00:00.000Z",
+      department: "English",
+    },
+    department: {
+      id: "e3f4a5b6-7c8d-4e9f-0a1b-2c3d4e5f6a7b",
+      name: "English",
+      description: "Department of English",
+    },
+    schedules: [
+      { day: "Friday", startTime: "13:00", endTime: "15:00" },
+    ],
+  },
+  {
+    id: "a2c6d8f1-4e9b-4f7d-8a2b-7b9d4c1e2f3a",
+    name: "Web Development Fundamentals",
+    description: "Introduction to HTML, CSS, JavaScript, and basic web concepts.",
+    status: "active",
+    capacity: 50,
+    courseCode: "CS105",
+    courseName: "Web Development",
+    bannerUrl: "https://placehold.co/600x300",
+    subject: {
+      id: "4a5b6c7d-8e9f-4a0b-1c2d-3e4f5a6b7c8d",
+      name: "Web Development",
+      code: "CS105",
+      description: "Frontend web technologies",
+      department: "Computer Science",
+      createdAt: "2026-01-12T11:00:00.000Z",
+    },
+    teacher: {
+      id: "d4e5f6a7-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+      name: "Min Zaw",
+      email: "minzaw@example.com",
+      role: UserRole.TEACHER,
+      createdAt: "2025-11-01T09:00:00.000Z",
+      updatedAt: "2026-01-01T09:00:00.000Z",
+      department: "Computer Science",
+    },
+    department: {
+      id: "f4a5b6c7-8d9e-4f0a-1b2c-3d4e5f6a7b8c",
+      name: "Computer Science",
+      description: "Department of Computer Science",
+    },
+    schedules: [
+      { day: "Monday", startTime: "14:00", endTime: "16:00" },
+    ],
+    inviteCode: "WEB101",
+  },
 ];
 
 export const DEPARTMENTS = [
@@ -49,6 +198,34 @@ export const DEPARTMENTS = [
   "Physical Education",
   "Law",
 ] as const;
+
+export const SUBJECTS = [
+  "Computer Science",
+  "Mathematics",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "English",
+  "History",
+  "Geography",
+  "Economics",
+  "Business Administration",
+  "Engineering",
+  "Psychology",
+  "Sociology",
+  "Political Science",
+  "Philosophy",
+  "Education",
+  "Fine Arts",
+  "Music",
+  "Physical Education",
+  "Law",
+] as const;
+
+export const SUBJECT_OPTIONS = SUBJECTS.map((s) => ({
+  value: s,
+  label: s,
+}))
 
 export const DEPARTMENT_OPTIONS = DEPARTMENTS.map((dpt) => ({
   value: dpt,

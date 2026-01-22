@@ -140,3 +140,11 @@
 @utility hover-effect {
   @apply transition-all duration-300 ease-in-out;
 }
+
+@utility page-title {
+  @apply text-[1.6rem] font-semibold tracking-tight;
+}
+
+@utility subtitle {
+  @apply uppercase tracking-wider text-foreground/85 font-bold;
+}

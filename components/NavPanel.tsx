@@ -16,39 +16,39 @@ import {
   Building2,
   Users,
   List,
-  Presentation,
+  GraduationCap,
 } from "lucide-react"
 
 export const links = [
   {
     title: "Home",
     href: "/",
-    icon: <Home className="h-5 w-5" />,
+    icon: <Home />,
   },
   {
     title: "Subjects",
     href: "/subjects",
-    icon: <BookOpen className="h-5 w-5" />,
-  },
-  {
-    title: "Departments",
-    href: "/departments",
-    icon: <Building2 className="h-5 w-5" />,
-  },
-  {
-    title: "Faculty",
-    href: "/faculty",
-    icon: <Users className="h-5 w-5" />,
-  },
-  {
-    title: "Enrollments",
-    href: "/enrollments",
-    icon: <List className="h-5 w-5" />,
+    icon: <BookOpen />,
   },
   {
     title: "Classes",
     href: "/classes",
-    icon: <Presentation className="h-5 w-5" />,
+    icon: <GraduationCap />,
+  },
+  {
+    title: "Departments",
+    href: "/departments",
+    icon: <Building2 />,
+  },
+  {
+    title: "Faculty",
+    href: "/faculty",
+    icon: <Users />,
+  },
+  {
+    title: "Enrollments",
+    href: "/enrollments",
+    icon: <List />,
   },
 ]
 

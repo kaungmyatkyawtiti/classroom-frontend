@@ -1,12 +1,10 @@
-import { Button } from "@/components/ui/button";
+"use client";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div>
       Home Page
-      <Button>
-        Hi
-      </Button>
     </div>
-  );
+  )
 }
+

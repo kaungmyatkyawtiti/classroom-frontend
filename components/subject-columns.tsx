@@ -18,7 +18,7 @@ import {
 import { Subject } from "@/types"
 import { Badge } from "./ui/badge";
 
-export const columns: ColumnDef<Subject>[] = [
+export const subjectColumns: ColumnDef<Subject>[] = [
   {
     id: "select",
     header: ({ table }) => (
