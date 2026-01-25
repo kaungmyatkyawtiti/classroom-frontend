@@ -1,17 +1,3 @@
-// import { Button } from "@/components/ui/button";
-// import Link from "next/link";
-//
-// export default function page() {
-//   return (
-//     <div>
-//       <Link href={"/classes/create"}>
-//         <Button>
-//           Create
-//         </Button>
-//       </Link>
-//     </div>
-//   )
-// }
 "use client"
 
 import {
@@ -39,6 +25,7 @@ import { MOCK_CLASSES, SUBJECT_OPTIONS } from "@/constants/dummy"
 import DataTable from "@/components/DataTable"
 import { classColumns } from "@/components/class-colums"
 import { useRouter } from "next/navigation"
+import PageContainer from "@/components/PageContainer"
 
 export default function SubjectPage() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -71,8 +58,8 @@ export default function SubjectPage() {
   const router = useRouter();
 
   return (
-    <div>
-      <div className="space-y-1 mb-6">
+    <PageContainer>
+      <div className="space-y-1.5 mb-3">
         <h2 className="page-title">Classes</h2>
         <p className="text-foreground/85 text-[15px]">Manage your classes, subjects and teachers.</p>
       </div>
@@ -159,6 +146,6 @@ export default function SubjectPage() {
           </Button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   )
 }

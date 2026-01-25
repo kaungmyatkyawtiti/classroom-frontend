@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input"
 import { DEPARTMENT_OPTIONS, MOCK_SUBJECTS } from "@/constants/dummy"
 import DataTable from "@/components/DataTable"
 import { subjectColumns } from "@/components/subject-columns"
+import PageContainer from "@/components/PageContainer"
 
 export default function SubjectPage() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -54,8 +55,8 @@ export default function SubjectPage() {
   })
 
   return (
-    <div className="w-full">
-      <div className="space-y-1 mb-6">
+    <PageContainer>
+      <div className="space-y-1.5 mb-3">
         <h2 className="page-title">Subjects</h2>
         <p className="text-foreground/85 text-[15px]">Manage your classes, subjects and teachers.</p>
       </div>
@@ -136,6 +137,6 @@ export default function SubjectPage() {
           </Button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   )
 }

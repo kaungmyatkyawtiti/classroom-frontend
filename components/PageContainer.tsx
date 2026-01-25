@@ -1,70 +1,3 @@
-// "use client";
-//
-// import {
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   BreadcrumbLink,
-//   BreadcrumbList,
-//   BreadcrumbPage,
-//   BreadcrumbSeparator,
-// } from "@/components/ui/breadcrumb"
-// import { usePathname } from "next/navigation"
-// import { Fragment, ReactNode } from "react"
-// import { Home } from "lucide-react"
-//
-// export default function PageContainer({ children }: { children: ReactNode }) {
-//   const pathname = usePathname()
-//   console.log("pathname", pathname);
-//   const segments = pathname.split("/").filter(Boolean)
-//   console.log("segments", segments);
-//
-//   return (
-//     <main className="my-6 px-4">
-//       <Breadcrumb className="mb-5">
-//         <BreadcrumbList>
-//           <BreadcrumbItem>
-//             {segments.length === 0 ? (
-//               <BreadcrumbPage>
-//                 <Home size={22} />
-//               </BreadcrumbPage>
-//             ) : (
-//               <BreadcrumbLink href="/">
-//                 <Home size={22} />
-//               </BreadcrumbLink>
-//             )}
-//           </BreadcrumbItem>
-//
-//           {segments.length > 0 && <BreadcrumbSeparator />}
-//
-//           {segments.map((segment, index) => {
-//             const href = "/" + segments.slice(0, index + 1).join("/")
-//             const isLast = index === segments.length - 1
-//             const label =
-//               segment.charAt(0).toUpperCase() + segment.slice(1)
-//
-//             return (
-//               <Fragment key={href}>
-//                 <BreadcrumbItem>
-//                   {isLast ? (
-//                     <BreadcrumbPage>{label}</BreadcrumbPage>
-//                   ) : (
-//                     <BreadcrumbLink href={href}>
-//                       {label}
-//                     </BreadcrumbLink>
-//                   )}
-//                 </BreadcrumbItem>
-//
-//                 {!isLast && <BreadcrumbSeparator />}
-//               </Fragment>
-//             )
-//           })}
-//         </BreadcrumbList>
-//       </Breadcrumb>
-//       {children}
-//     </main>
-//   )
-// }
-//
 "use client"
 
 import Link from "next/link"
@@ -87,8 +20,29 @@ import {
 import { usePathname } from "next/navigation"
 import { Fragment, ReactNode } from "react"
 import { Home } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-export default function PageContainer({ children }: { children: ReactNode }) {
+interface PageContainerProps {
+  children: ReactNode;
+  dynamicLabel?: string;
+  className?: string;
+}
+
+function formatLabel(segment: string) {
+  return segment
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
+function isUUID(segment: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(segment)
+}
+
+export default function PageContainer({
+  children,
+  dynamicLabel,
+  className,
+}: PageContainerProps) {
   const pathname = usePathname()
   const segments = pathname.split("/").filter(Boolean)
 
@@ -98,7 +52,7 @@ export default function PageContainer({ children }: { children: ReactNode }) {
   const end = segments.slice(-2)
 
   return (
-    <main className="my-6 px-4">
+    <main className={cn("my-6 px-6", className)}>
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           {/* Home */}
@@ -152,11 +106,9 @@ export default function PageContainer({ children }: { children: ReactNode }) {
               ? segments.length - arr.length
               : 0
 
-            const href =
-              "/" +
-              segments
-                .slice(0, baseIndex + index + 1)
-                .join("/")
+            const href = "/" + segments
+              .slice(0, baseIndex + index + 1)
+              .join("/")
 
             const isLast = index === arr.length - 1
 
@@ -165,7 +117,9 @@ export default function PageContainer({ children }: { children: ReactNode }) {
                 <BreadcrumbItem>
                   {isLast ? (
                     <BreadcrumbPage>
-                      {formatLabel(segment)}
+                      {isUUID(segment) && dynamicLabel
+                        ? dynamicLabel
+                        : formatLabel(segment)}
                     </BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink asChild>
@@ -186,10 +140,4 @@ export default function PageContainer({ children }: { children: ReactNode }) {
       {children}
     </main>
   )
-}
-
-function formatLabel(segment: string) {
-  return segment
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase())
 }

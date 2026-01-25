@@ -28,7 +28,7 @@ export default function DataTable<TData>({
                 return (
                   <TableHead
                     key={header.id}
-                    className="text-[15px] font-semibold h-14"
+                    className="text-[14px] font-semibold h-14"
                   >
                     {header.isPlaceholder
                       ? null
@@ -52,7 +52,7 @@ export default function DataTable<TData>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="text-[15px] text-foreground/90"
+                    className="text-foreground/90"
                   >
                     {flexRender(
                       cell.column.columnDef.cell,

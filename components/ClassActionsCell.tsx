@@ -23,12 +23,12 @@ export default function ClassActionsCell({ id }: { id: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem>Delete</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => router.push(`/classes/${id}`)}
         >
           View about this
         </DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

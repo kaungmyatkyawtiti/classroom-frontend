@@ -1,5 +1,4 @@
 import { AppSidebar } from "@/components/app-sidebar"
-import PageContainer from "@/components/PageContainer"
 import { SiteHeader } from "@/components/SiteHeader"
 import {
   SidebarInset,
@@ -22,9 +21,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
-            <PageContainer>
-              {children}
-            </PageContainer>
+            {children}
           </div>
         </div>
       </SidebarInset>

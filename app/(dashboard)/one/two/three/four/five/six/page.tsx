@@ -1,8 +1,10 @@
+import PageContainer from "@/components/PageContainer";
+
 export default function page() {
   return (
-    <div>
+    <PageContainer>
       Just test
-    </div>
+    </PageContainer>
   )
 }
 

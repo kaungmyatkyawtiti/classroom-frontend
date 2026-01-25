@@ -79,7 +79,7 @@ export function ClassesCreateForm() {
 
   return (
     <Card className="w-full sm:max-w-2xl">
-      <CardHeader className="mb-4 text-center">
+      <CardHeader className="mb-5 text-center">
         <CardTitle className="text-lg font-semibold">Create Class Form</CardTitle>
         <CardDescription>
           Enter the class details and assign it to a department.

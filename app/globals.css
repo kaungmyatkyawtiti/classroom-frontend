@@ -146,5 +146,5 @@
 }
 
 @utility subtitle {
-  @apply uppercase tracking-wider text-foreground/85 font-bold;
+  @apply uppercase tracking-wider font-bold text-base text-cyan-600;
 }
